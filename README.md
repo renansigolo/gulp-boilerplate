@@ -75,10 +75,10 @@ Generate your `favicons` at [RealFaviconGenerator](https://realfavicongenerator.
 
 - [Renan Sigolo](https://www.renansigolo.com/)
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## Acknowledgement
 
 - A huge thanks to [Tania Rascia](https://www.taniarascia.com) 👍🏻
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).

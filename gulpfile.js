@@ -4,7 +4,6 @@
 
 const { series, parallel, watch, src, dest } = require('gulp')
 const browserSync = require('browser-sync').create()
-
 const autoprefixer = require('gulp-autoprefixer')
 const concat = require('gulp-concat')
 const cssnano = require('cssnano')
@@ -23,7 +22,7 @@ const uglify = require('gulp-uglify')
 
 // Watch SCSS files -> sourcemap, autroprefixer, minify with cssnano, rename .css to .min.css
 const scss = () => {
-  return src('src/assets/_pre/sass/main.scss', { sourcemaps: true })
+  return src('src/styles/main.scss', { sourcemaps: true })
     .pipe(sass().on('error', sass.logError))
     .pipe(
       autoprefixer({
@@ -48,13 +47,13 @@ const scss = () => {
         }
       })
     )
-    .pipe(dest('src/assets/css/', { sourcemaps: true }))
+    .pipe(dest('src/assets/', { sourcemaps: true }))
     .pipe(browserSync.stream())
 }
 
 // Watch JS files -> sourcemap, minifiy with uglify, concat
 const js = () => {
-  return src('src/assets/_pre/js/*.js', { sourcemaps: true })
+  return src('src/js/**/*.js', { sourcemaps: true })
     .pipe(uglify())
     .pipe(concat('scripts.js'))
     .pipe(
@@ -64,16 +63,14 @@ const js = () => {
         }
       })
     )
-    .pipe(dest('src/assets/js/', { sourcemaps: true }))
+    .pipe(dest('src/assets/', { sourcemaps: true }))
     .pipe(browserSync.stream())
 }
 
 // Concat Minified JS libraries
 const jsLibs = () => {
   const libPaths = [
-    'node_modules/jquery/dist/jquery.slim.min.js',
-    'node_modules/popper.js/dist/umd/popper.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js'
+    // ADD YOUR JS LIBRARIES HERE
   ]
 
   return src(libPaths)
@@ -85,7 +82,7 @@ const jsLibs = () => {
         }
       })
     )
-    .pipe(dest('src/assets/js/'))
+    .pipe(dest('src/assets/'))
 }
 
 // Delete all files in the dist folder
@@ -102,7 +99,7 @@ const minifyHtml = () => {
         collapseWhitespace: true
       })
     )
-    .pipe(dest('dist'))
+    .pipe(dest('dist/'))
 }
 
 // Create sitemap.xml
@@ -150,15 +147,16 @@ const optimizeJpg = () => {
 const copy = () => {
   return src([
     'src/**/*.{xml,txt,eot,ttf,woff,woff2,otf,ttf,php,css,js,json,map}',
-    '!src/assets/_pre/**/*'
+    '!src/js/**/*',
+    '!src/styles/**/*'
   ]).pipe(dest('dist/'))
 }
 
 // Watch
 const watchFiles = () => {
   watch('src/**/*.html').on('change', browserSync.reload)
-  watch('src/assets/_pre/sass/**/*.scss', scss)
-  watch('src/assets/_pre/js/**/*.js', js)
+  watch('src/styles/**/*.scss', scss)
+  watch('src/js/**/*.js', js)
   watch('node_modules/**/*', jsLibs)
 }
 
@@ -173,22 +171,19 @@ const serve = () => {
   watchFiles()
 }
 
-/**************** Gulp Commands ****************/
+/**************** Gulp Tasks ****************/
 
-// Start Dev Env
+// Start Dev Environment
 exports.start = serve
 
-// Build Dev Env
-exports.build = parallel(scss, js, jsLibs)
-
-// Build Production
+// Build Production files
 exports.default = series(
   clean,
   parallel(
     minifyHtml,
     scss,
     js,
-    jsLibs,
+    // jsLibs,
     generateSitemap,
     optimizeGif,
     optimizePng,

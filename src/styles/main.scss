@@ -1,8 +1,11 @@
+@import 'node_modules/normalize.css/normalize.css';
+
 @font-face {
   font-family: 'Roboto';
   src: url(../fonts/Roboto-Regular.ttf);
 }
 
+@import 'skeleton.scss';
 @import 'variables';
 
 html {

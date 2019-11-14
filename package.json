@@ -10,7 +10,7 @@
     "boilerplate"
   ],
   "license": "MIT",
-  "main": "index.html",
+  "main": "./dist/assets/scripts.min.js",
   "bugs": {
     "url": "https://github.com/renansigolo/gulp-boilerplate/issues"
   },
@@ -22,8 +22,7 @@
   "scripts": {
     "clean": "rm -rf package-lock.json node_modules dist",
     "clean:install": "rm -rf package-lock.json node_modules dist && npm i",
-    "build:prod": "gulp",
-    "build": "gulp build",
+    "build": "gulp",
     "start": "gulp start",
     "deploy": "npm run build:prod && firebase deploy",
     "prettier": "prettier --config ./.prettierrc.json --write '**/*.{html,scss,js,json,yml,md}'"
