@@ -1,0 +1,62 @@
+{
+  "name": "gulp-boilerplate",
+  "version": "1.0.0",
+  "description": "A sensible Gulp 4 boilerplate.",
+  "author": "Renan Sigolo <renan.sigolo@gmail.com>",
+  "keywords": [
+    "gulp",
+    "gulp 4",
+    "gulp boilerplate",
+    "boilerplate"
+  ],
+  "license": "MIT",
+  "main": "index.html",
+  "bugs": {
+    "url": "https://github.com/renansigolo/gulp-boilerplate/issues"
+  },
+  "homepage": "https://github.com/renansigolo/gulp-boilerplate#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renansigolo/gulp-boilerplate.git"
+  },
+  "scripts": {
+    "clean": "rm -rf package-lock.json node_modules dist",
+    "clean:install": "rm -rf package-lock.json node_modules dist && npm i",
+    "build:prod": "gulp",
+    "build": "gulp build",
+    "start": "gulp start",
+    "deploy": "npm run build:prod && firebase deploy",
+    "prettier": "prettier --config ./.prettierrc.json --write '**/*.{html,scss,js,json,yml,md}'"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "browser-sync": "^2.26.7",
+    "cssnano": "^4.1.10",
+    "del": "^5.1.0",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^6.0.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^6.2.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sitemap": "^7.6.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "gulp": "^4.0.2",
+    "imagemin-guetzli": "^2.0.0",
+    "imagemin-pngquant": "^8.0.0",
+    "prettier": "^1.19.1"
+  },
+  "engines": {
+    "node": ">=10.15.0",
+    "npm": ">= 6.5.0",
+    "yarn": "NO LONGER USED - Please use npm"
+  }
+}
