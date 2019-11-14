@@ -85,23 +85,23 @@ const js = () => {
     .pipe(browserSync.stream())
 }
 
-// // Concat Minified JS libraries
-// const jsLibs = () => {
-//   const libPaths = [
-//     // ADD YOUR JS LIBRARIES HERE
-//   ]
+// Concat Minified JS libraries
+const jsLibs = () => {
+  const libPaths = [
+    // ADD YOUR JS LIBRARIES HERE
+  ]
 
-//   return src(libPaths)
-//     .pipe(concat('libs.js'))
-//     .pipe(
-//       rename(function(path) {
-//         if (path.extname === '.js') {
-//           path.basename += '.min'
-//         }
-//       })
-//     )
-//     .pipe(dest(paths.assets))
-// }
+  return src(libPaths)
+    .pipe(concat('libs.js', { allowEmpty: true }))
+    .pipe(
+      rename(function(path) {
+        if (path.extname === '.js') {
+          path.basename += '.min'
+        }
+      })
+    )
+    .pipe(dest(paths.assets))
+}
 
 // Delete all files in the dist folder
 const clean = () => {
@@ -164,7 +164,7 @@ const optimizeJpg = () => {
 // Copy remaining files to dist
 const copy = () => {
   return src([
-    'src/**/*.{xml,txt,eot,ttf,woff,woff2,otf,ttf,php,css,js,json,map}',
+    'src/**/*.{xml,txt,eot,ttf,woff,woff2,otf,ttf,php,css,js,json,map,webmanifest}',
     '!src/js/**/*',
     `!${paths.styles.input}/**/*`
   ]).pipe(dest(paths.output))
@@ -176,7 +176,7 @@ const watchFiles = () => {
   watch('src/images/**/*').on('change', browserSync.reload)
   watch(`${paths.styles.input}/**/*.scss`, scss)
   watch('src/js/**/*.js', js)
-  // watch('node_modules/**/*', jsLibs)
+  watch('node_modules/**/*', jsLibs)
 }
 
 // Serve
@@ -199,13 +199,13 @@ exports.default = series(
     minifyHtml,
     scss,
     js,
-    // jsLibs,
+    jsLibs,
     generateSitemap,
     optimizeGif,
     optimizePng,
-    optimizeJpg,
-    copy
-  )
+    optimizeJpg
+  ),
+  copy
 )
 
 // Start Dev Environment

@@ -14,14 +14,14 @@
   "bugs": {
     "url": "https://github.com/renansigolo/gulp-boilerplate/issues"
   },
-  "homepage": "https://github.com/renansigolo/gulp-boilerplate#readme",
+  "homepage": "https://github.com/renansigolo/gulp-boilerplate",
   "repository": {
     "type": "git",
     "url": "https://github.com/renansigolo/gulp-boilerplate.git"
   },
   "scripts": {
     "clean": "rm -rf package-lock.json node_modules dist",
-    "clean:install": "rm -rf package-lock.json node_modules dist && npm i",
+    "clean:install": "npm run clean && npm i",
     "build": "NODE_ENV=development gulp",
     "build:prod": "NODE_ENV=production gulp",
     "start": "NODE_ENV=development gulp watch",
