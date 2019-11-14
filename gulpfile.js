@@ -20,9 +20,27 @@ const uglify = require('gulp-uglify')
 
 /**************** Functions ****************/
 
+// Check Node Env
+let isDev = process.env.NODE_ENV === 'development' ? true : false
+
+/**
+ * Paths to project folders
+ */
+
+const paths = {
+  input: 'src/',
+  output: 'dist/',
+  assets: 'src/assets',
+  website: 'https://www.INSERT_YOUR_WEBSITE_ADDRESS_HERE.com.br',
+  styles: {
+    input: 'src/styles',
+    output: 'dist/css/'
+  }
+}
+
 // Watch SCSS files -> sourcemap, autroprefixer, minify with cssnano, rename .css to .min.css
 const scss = () => {
-  return src('src/styles/main.scss', { sourcemaps: true })
+  return src(`${paths.styles.input}/main.scss`, { sourcemaps: isDev })
     .pipe(sass().on('error', sass.logError))
     .pipe(
       autoprefixer({
@@ -47,13 +65,13 @@ const scss = () => {
         }
       })
     )
-    .pipe(dest('src/assets/', { sourcemaps: true }))
+    .pipe(dest(paths.assets, { sourcemaps: isDev }))
     .pipe(browserSync.stream())
 }
 
 // Watch JS files -> sourcemap, minifiy with uglify, concat
 const js = () => {
-  return src('src/js/**/*.js', { sourcemaps: true })
+  return src('src/js/**/*.js', { sourcemaps: isDev })
     .pipe(uglify())
     .pipe(concat('scripts.js'))
     .pipe(
@@ -63,31 +81,31 @@ const js = () => {
         }
       })
     )
-    .pipe(dest('src/assets/', { sourcemaps: true }))
+    .pipe(dest(paths.assets, { sourcemaps: isDev }))
     .pipe(browserSync.stream())
 }
 
-// Concat Minified JS libraries
-const jsLibs = () => {
-  const libPaths = [
-    // ADD YOUR JS LIBRARIES HERE
-  ]
+// // Concat Minified JS libraries
+// const jsLibs = () => {
+//   const libPaths = [
+//     // ADD YOUR JS LIBRARIES HERE
+//   ]
 
-  return src(libPaths)
-    .pipe(concat('libs.js'))
-    .pipe(
-      rename(function(path) {
-        if (path.extname === '.js') {
-          path.basename += '.min'
-        }
-      })
-    )
-    .pipe(dest('src/assets/'))
-}
+//   return src(libPaths)
+//     .pipe(concat('libs.js'))
+//     .pipe(
+//       rename(function(path) {
+//         if (path.extname === '.js') {
+//           path.basename += '.min'
+//         }
+//       })
+//     )
+//     .pipe(dest(paths.assets))
+// }
 
 // Delete all files in the dist folder
 const clean = () => {
-  del.sync(['dist/**/*'])
+  del.sync([`${paths.output}/**/*`, `${paths.assets}/**/*`])
   return Promise.resolve()
 }
 
@@ -99,7 +117,7 @@ const minifyHtml = () => {
         collapseWhitespace: true
       })
     )
-    .pipe(dest('dist/'))
+    .pipe(dest(paths.output))
 }
 
 // Create sitemap.xml
@@ -109,10 +127,10 @@ const generateSitemap = () => {
   })
     .pipe(
       sitemap({
-        siteUrl: 'https://www.INSERT_YOUR_WEBSITE_ADDRESS_HERE.com.br'
+        siteUrl: paths.website
       })
     )
-    .pipe(dest('dist'))
+    .pipe(dest(paths.output))
 }
 
 // Optimize Images - GIF, SVG and ICO
@@ -126,21 +144,21 @@ const optimizeGif = () => {
         })
       ])
     )
-    .pipe(dest('dist/'))
+    .pipe(dest(paths.output))
 }
 
 // Optimize Images - PNG
 const optimizePng = () => {
   return src('src/**/*.png')
     .pipe(imagemin([imageminPngquant()]))
-    .pipe(dest('dist/'))
+    .pipe(dest(paths.output))
 }
 
 // Optimize Images - JPG ang JPEG
 const optimizeJpg = () => {
   return src('src/**/*.{jpg,jpeg}')
     .pipe(imagemin([imageminGuetzli()]))
-    .pipe(dest('dist/'))
+    .pipe(dest(paths.output))
 }
 
 // Copy remaining files to dist
@@ -148,20 +166,21 @@ const copy = () => {
   return src([
     'src/**/*.{xml,txt,eot,ttf,woff,woff2,otf,ttf,php,css,js,json,map}',
     '!src/js/**/*',
-    '!src/styles/**/*'
-  ]).pipe(dest('dist/'))
+    `!${paths.styles.input}/**/*`
+  ]).pipe(dest(paths.output))
 }
 
 // Watch
 const watchFiles = () => {
   watch('src/**/*.html').on('change', browserSync.reload)
-  watch('src/styles/**/*.scss', scss)
+  watch('src/images/**/*').on('change', browserSync.reload)
+  watch(`${paths.styles.input}/**/*.scss`, scss)
   watch('src/js/**/*.js', js)
-  watch('node_modules/**/*', jsLibs)
+  // watch('node_modules/**/*', jsLibs)
 }
 
 // Serve
-const serve = () => {
+const startServer = () => {
   browserSync.init({
     server: {
       baseDir: './src/'
@@ -172,9 +191,6 @@ const serve = () => {
 }
 
 /**************** Gulp Tasks ****************/
-
-// Start Dev Environment
-exports.start = serve
 
 // Build Production files
 exports.default = series(
@@ -191,3 +207,6 @@ exports.default = series(
     copy
   )
 )
+
+// Start Dev Environment
+exports.watch = series(exports.default, startServer)

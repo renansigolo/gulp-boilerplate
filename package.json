@@ -22,13 +22,15 @@
   "scripts": {
     "clean": "rm -rf package-lock.json node_modules dist",
     "clean:install": "rm -rf package-lock.json node_modules dist && npm i",
-    "build": "gulp",
-    "start": "gulp start",
+    "build": "NODE_ENV=development gulp",
+    "build:prod": "NODE_ENV=production gulp",
+    "start": "NODE_ENV=development gulp watch",
     "deploy": "npm run build:prod && firebase deploy",
     "prettier": "prettier --config ./.prettierrc.json --write '**/*.{html,scss,js,json,yml,md}'"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "pills": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",

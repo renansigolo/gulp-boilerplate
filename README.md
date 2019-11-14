@@ -34,6 +34,7 @@ npm run build
 - [PostCSS](https://postcss.org/)
 - [ESLint](https://eslint.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
+- [Skeleton](http://getskeleton.com/)
 
 ## Dependencies
 
@@ -68,8 +69,8 @@ npm run build
 
 ## Bonus
 
-Generate your `site.manifest` file at [Web App Manifest Generator](https://app-manifest.firebaseapp.com/)
-Generate your `favicons` at [RealFaviconGenerator](https://realfavicongenerator.net/)
+- Generate your `site.manifest` file at [Web App Manifest Generator](https://app-manifest.firebaseapp.com/)
+- Generate your `favicons` at [RealFaviconGenerator](https://realfavicongenerator.net/)
 
 ## Author
 
