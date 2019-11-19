@@ -29,8 +29,7 @@
     "prettier": "prettier --config ./.prettierrc.json --write '**/*.{html,scss,js,json,yml,md}'"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1",
-    "pills": "^1.0.1"
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",

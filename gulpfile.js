@@ -87,12 +87,10 @@ const js = () => {
 
 // Concat Minified JS libraries
 const jsLibs = () => {
-  const libPaths = [
-    // ADD YOUR JS LIBRARIES HERE
-  ]
+  const libPaths = []
 
   return src(libPaths)
-    .pipe(concat('libs.js', { allowEmpty: true }))
+    .pipe(concat('libs.js'))
     .pipe(
       rename(function(path) {
         if (path.extname === '.js') {
@@ -199,7 +197,7 @@ exports.default = series(
     minifyHtml,
     scss,
     js,
-    jsLibs,
+    // jsLibs,
     generateSitemap,
     optimizeGif,
     optimizePng,
