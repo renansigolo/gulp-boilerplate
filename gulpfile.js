@@ -4,7 +4,7 @@
 
 const { series, parallel, watch, src, dest } = require('gulp')
 const browserSync = require('browser-sync').create()
-const autoprefixer = require('gulp-autoprefixer')
+const autoprefixer = require('autoprefixer')
 const concat = require('gulp-concat')
 const cssnano = require('cssnano')
 const del = require('del')
@@ -39,24 +39,11 @@ const paths = {
 }
 
 // Watch SCSS files -> sourcemap, autroprefixer, minify with cssnano, rename .css to .min.css
+const cssPlugins = [autoprefixer(), cssnano()]
 const scss = () => {
   return src(`${paths.styles.input}/main.scss`, { sourcemaps: isDev })
     .pipe(sass().on('error', sass.logError))
-    .pipe(
-      autoprefixer({
-        cascade: false,
-        remove: true
-      })
-    )
-    .pipe(
-      postcss([
-        cssnano({
-          discardComments: {
-            removeAll: true
-          }
-        })
-      ])
-    )
+    .pipe(postcss(cssPlugins))
     .pipe(
       rename(function(path) {
         if (path.extname === '.css') {
