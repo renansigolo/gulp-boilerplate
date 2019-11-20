@@ -26,6 +26,7 @@
     "build:prod": "NODE_ENV=production gulp",
     "start": "NODE_ENV=development gulp watch",
     "deploy": "npm run build:prod && firebase deploy",
+    "release": "standard-version",
     "prettier": "prettier --config ./.prettierrc.json --write '**/*.{html,scss,js,json,yml,md}'"
   },
   "dependencies": {
