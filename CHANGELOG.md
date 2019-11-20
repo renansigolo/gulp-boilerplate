@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/renansigolo/gulp-boilerplate/compare/v1.1.2...v1.1.3) (2019-11-20)
+
+
+### Bug Fixes
+
+* version scripts ([6767074](https://github.com/renansigolo/gulp-boilerplate/commit/67670742065205132084d8b707232a72b5497602))
+
 ## [1.1.0](https://github.com/renansigolo/gulp-boilerplate/compare/v1.0.1...v1.1.0) (2019-11-20)
 
 
