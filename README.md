@@ -35,6 +35,7 @@ npm run build
 - [ESLint](https://eslint.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
 - [Skeleton](http://getskeleton.com/)
+- [Standard Version](https://github.com/conventional-changelog/standard-version)
 
 ## Dependencies
 
