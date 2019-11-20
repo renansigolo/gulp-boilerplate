@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/renansigolo/gulp-boilerplate/compare/v1.1.4...v1.2.0) (2019-11-20)
+
+
+### Features
+
+* replace autoprefixer with postcss ([17421ef](https://github.com/renansigolo/gulp-boilerplate/commit/17421efc1839aa25aa0be7ffeedbdd94c62a2547))
+
 ### [1.1.5](https://github.com/renansigolo/gulp-boilerplate/compare/v1.1.3...v1.1.5) (2019-11-20)
 
 ### Bug Fixes
