@@ -1,5 +1,3 @@
-'use strict'
-
 /**************** Global Imports ****************/
 
 const { series, parallel, watch, src, dest } = require('gulp')
@@ -17,11 +15,13 @@ const rename = require('gulp-rename')
 const sass = require('gulp-sass')
 const sitemap = require('gulp-sitemap')
 const uglify = require('gulp-uglify')
+const eslint = require('gulp-eslint')
+const pjson = require('./package.json')
 
 /**************** Functions ****************/
 
 // Check Node Env
-let isDev = process.env.NODE_ENV === 'development' ? true : false
+const isDev = process.env.NODE_ENV === 'development' ? true : false
 
 /**
  * Paths to project folders
@@ -31,17 +31,13 @@ const paths = {
   input: 'src/',
   output: 'dist/',
   assets: 'src/assets',
-  website: 'https://www.INSERT_YOUR_WEBSITE_ADDRESS_HERE.com.br',
-  styles: {
-    input: 'src/styles',
-    output: 'dist/css/'
-  }
+  website: pjson.homepage
 }
 
 // Watch SCSS files -> sourcemap, autroprefixer, minify with cssnano, rename .css to .min.css
 const cssPlugins = [autoprefixer(), cssnano()]
 const scss = () => {
-  return src(`${paths.styles.input}/main.scss`, { sourcemaps: isDev })
+  return src('src/scss/main.scss', { sourcemaps: isDev })
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss(cssPlugins))
     .pipe(
@@ -52,14 +48,14 @@ const scss = () => {
         }
       })
     )
-    .pipe(dest(paths.assets, { sourcemaps: isDev }))
+    .pipe(dest(paths.output, { sourcemaps: isDev }))
     .pipe(browserSync.stream())
 }
 
 // Watch JS files -> sourcemap, minifiy with uglify, concat
 const js = () => {
   return src('src/js/**/*.js', { sourcemaps: isDev })
-    .pipe(uglify())
+    .pipe(eslint())
     .pipe(concat('scripts.js'))
     .pipe(
       rename(function(path) {
@@ -68,7 +64,7 @@ const js = () => {
         }
       })
     )
-    .pipe(dest(paths.assets, { sourcemaps: isDev }))
+    .pipe(dest(paths.output, { sourcemaps: isDev }))
     .pipe(browserSync.stream())
 }
 
@@ -85,7 +81,7 @@ const jsLibs = () => {
         }
       })
     )
-    .pipe(dest(paths.assets))
+    .pipe(dest(paths.output))
 }
 
 // Delete all files in the dist folder
@@ -151,7 +147,7 @@ const copy = () => {
   return src([
     'src/**/*.{xml,txt,eot,ttf,woff,woff2,otf,ttf,php,css,js,json,map}',
     '!src/js/**/*',
-    `!${paths.styles.input}/**/*`
+    '!src/scss/**/*'
   ]).pipe(dest(paths.output))
 }
 
@@ -159,7 +155,7 @@ const copy = () => {
 const watchFiles = () => {
   watch('src/**/*.html').on('change', browserSync.reload)
   watch('src/images/**/*').on('change', browserSync.reload)
-  watch(`${paths.styles.input}/**/*.scss`, scss)
+  watch('src/scss/**/*.scss', scss)
   watch('src/js/**/*.js', js)
   watch('node_modules/**/*', jsLibs)
 }

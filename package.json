@@ -1,24 +1,32 @@
 {
-  "name": "gulp-boilerplate",
-  "version": "1.2.0",
-  "description": "A sensible Gulp 4 boilerplate.",
-  "author": "Renan Sigolo <renan.sigolo@gmail.com>",
-  "keywords": [
-    "gulp",
-    "gulp 4",
-    "gulp boilerplate",
-    "boilerplate"
-  ],
-  "license": "MIT",
-  "main": "./dist/assets/scripts.min.js",
-  "bugs": {
-    "url": "https://github.com/renansigolo/gulp-boilerplate/issues"
+  "name": "project-name",
+  "version": "0.0.1",
+  "description": "A description for your project.",
+  "main": "./dist/your-main-js-file.js",
+  "homepage": "http://link-to-your-website.com",
+  "author": {
+    "name": "YOUR NAME",
+    "email": "your-email@provider.com",
+    "url": "http://link-to-your-website.com"
   },
-  "homepage": "https://github.com/renansigolo/gulp-boilerplate",
   "repository": {
     "type": "git",
-    "url": "https://github.com/renansigolo/gulp-boilerplate.git"
+    "url": "http://link-to-your-git-repo.com"
   },
+  "license": "MIT",
+  "boilerplate": {
+    "version": "1.2.0",
+    "author": "Renan Sigolo",
+    "url": "https://renansigolo.com",
+    "repo": "https://github.com/renansigolo/gulp-boilerplate",
+    "bugs": {
+      "url": "https://github.com/renansigolo/gulp-boilerplate/issues"
+    }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 0.25%"
+  ],
   "scripts": {
     "clean": "rm -rf package-lock.json node_modules dist",
     "clean:install": "npm run clean && npm i",
@@ -40,6 +48,8 @@
     "browser-sync": "^2.26.7",
     "cssnano": "^4.1.10",
     "del": "^5.1.0",
+    "eslint": "^6.7.2",
+    "eslint-config-google": "^0.14.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-babel": "^8.0.0",
@@ -62,6 +72,5 @@
     "node": ">=10.15.0",
     "npm": ">= 6.5.0",
     "yarn": "NO LONGER USED - Please use npm"
-  },
-  "browserslist": "defaults"
+  }
 }
