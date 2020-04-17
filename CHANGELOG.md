@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/renansigolo/gulp-boilerplate/compare/v1.2.1...v1.2.4) (2020-04-17)
+
+
+### Bug Fixes
+
+* clean firebase config ([14e3870](https://github.com/renansigolo/gulp-boilerplate/commit/14e3870701789b75c608a3de2f73b59a4c8122b4))
+
 ### [1.2.2](https://github.com/renansigolo/gulp-boilerplate/compare/v1.1.6...v1.2.2) (2020-04-17)
 
 ## [1.2.0](https://github.com/renansigolo/gulp-boilerplate/compare/v1.1.4...v1.2.0) (2019-11-20)
