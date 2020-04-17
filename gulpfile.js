@@ -34,8 +34,8 @@ const paths = {
   website: 'https://www.INSERT_YOUR_WEBSITE_ADDRESS_HERE.com.br',
   styles: {
     input: 'src/styles',
-    output: 'dist/css/'
-  }
+    output: 'dist/css/',
+  },
 }
 
 // Watch SCSS files -> sourcemap, autroprefixer, minify with cssnano, rename .css to .min.css
@@ -45,7 +45,7 @@ const scss = () => {
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss(cssPlugins))
     .pipe(
-      rename(function(path) {
+      rename(function (path) {
         if (path.extname === '.css') {
           path.basename = 'styles'
           path.basename += '.min'
@@ -62,7 +62,7 @@ const js = () => {
     .pipe(uglify())
     .pipe(concat('scripts.js'))
     .pipe(
-      rename(function(path) {
+      rename(function (path) {
         if (path.extname === '.js') {
           path.basename += '.min'
         }
@@ -79,7 +79,7 @@ const jsLibs = () => {
   return src(libPaths)
     .pipe(concat('libs.js'))
     .pipe(
-      rename(function(path) {
+      rename(function (path) {
         if (path.extname === '.js') {
           path.basename += '.min'
         }
@@ -99,7 +99,7 @@ const minifyHtml = () => {
   return src('src/**/*.html')
     .pipe(
       htmlmin({
-        collapseWhitespace: true
+        collapseWhitespace: true,
       })
     )
     .pipe(dest(paths.output))
@@ -108,11 +108,11 @@ const minifyHtml = () => {
 // Create sitemap.xml
 const generateSitemap = () => {
   return src('src/**/*.html', {
-    read: false
+    read: false,
   })
     .pipe(
       sitemap({
-        siteUrl: paths.website
+        siteUrl: paths.website,
       })
     )
     .pipe(dest(paths.output))
@@ -125,8 +125,8 @@ const optimizeGif = () => {
       imagemin([
         imagemin.gifsicle({
           interlaced: true,
-          optimizationLevel: 3
-        })
+          optimizationLevel: 3,
+        }),
       ])
     )
     .pipe(dest(paths.output))
@@ -151,7 +151,7 @@ const copy = () => {
   return src([
     'src/**/*.{xml,txt,eot,ttf,woff,woff2,otf,ttf,php,css,js,json,map}',
     '!src/js/**/*',
-    `!${paths.styles.input}/**/*`
+    `!${paths.styles.input}/**/*`,
   ]).pipe(dest(paths.output))
 }
 
@@ -168,8 +168,8 @@ const watchFiles = () => {
 const startServer = () => {
   browserSync.init({
     server: {
-      baseDir: './src/'
-    }
+      baseDir: './src/',
+    },
   })
 
   watchFiles()
