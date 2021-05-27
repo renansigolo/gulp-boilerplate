@@ -55,7 +55,7 @@
     "gulp-uglify": "^3.0.2",
     "imagemin-guetzli": "^3.0.0",
     "imagemin-pngquant": "^9.0.1",
-    "postcss": "^8.1.7",
+    "postcss": "^8.2.10",
     "prettier": "^2.1.2",
     "standard-version": "^9.0.0"
   },
