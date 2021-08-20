@@ -14,7 +14,7 @@ const imageminGuetzli = require('imagemin-guetzli')
 const imageminPngquant = require('imagemin-pngquant')
 const postcss = require('gulp-postcss')
 const rename = require('gulp-rename')
-const sass = require('gulp-sass')
+const sass = require('gulp-sass')(require('sass'))
 const sitemap = require('gulp-sitemap')
 const uglify = require('gulp-uglify')
 

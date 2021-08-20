@@ -30,3 +30,12 @@
 .DS_Store
 Thumbs.db
 .firebase
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
